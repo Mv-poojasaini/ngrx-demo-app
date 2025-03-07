@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from 'src/model/user.type';
 import { loadUsers, addUser, removeUser } from 'src/store/user.actions';
-import { selectAllUser } from 'src/store/user.selectors';
+import { selectAllUser, selectAllErrors } from 'src/store/user.selectors';
 
 @Component({
   selector: 'app-user',
@@ -11,13 +11,18 @@ import { selectAllUser } from 'src/store/user.selectors';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  users$ = this.store.select(selectAllUser);
+
+  users$ : Observable<User[]>
+  error$ : Observable<string>
+
   newName: string = '';
   newEmail: string = '';
   constructor(private store: Store) {
-
+    this.users$ = this.store.select(selectAllUser)
+    this.error$ = this.store.select(selectAllErrors)
   }
   ngOnInit() {
+
     this.store.dispatch(loadUsers())
   }
 
@@ -30,6 +35,7 @@ export class UserComponent implements OnInit {
       name: this.newName,
       email: this.newEmail
     };
+
     this.store.dispatch(addUser({ user: newUser }))
     this.newName = '';
     this.newEmail = '';

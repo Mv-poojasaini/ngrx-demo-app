@@ -5,5 +5,8 @@ export const selectUserState = createFeatureSelector<State>('user')
 export const selectAllUser = createSelector(
   selectUserState,
   (state: State) => state.users
-  
+)
+export const selectAllErrors = createSelector(
+  selectUserState,
+  (state : State) => state.error
 )

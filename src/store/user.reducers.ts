@@ -1,15 +1,14 @@
 import { createReducer, on } from "@ngrx/store";
-import { addUser, loadUsers, removeUser } from "./user.actions";
+import { addUser, loadUsers, loadUsersWithFailure, loadUsersWithSuccess, removeUser } from "./user.actions";
 import { User } from "src/model/user.type";
 
 export type State = {
   users: User[]
+  error: string
 }
 export const intialState: State = {
-  users: [
-    { id: 1, name: 'John Doe', email: 'john.doe@example.com' },
-    { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com' }
-  ]
+  users: [],
+  error: ""
 }
 export const userReducer = createReducer(
   intialState,
@@ -18,5 +17,7 @@ export const userReducer = createReducer(
   on(removeUser, (state, { userId }) => ({
     ...state,
     users: state.users.filter((user) => user.id !== userId)
-  }))
+  })),
+  on(loadUsersWithSuccess, (state,{users}) => ({ ...state, users })),
+  on(loadUsersWithFailure, (state, {error}) => ({...state, error}) )
 );

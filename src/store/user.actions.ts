@@ -12,3 +12,13 @@ export const removeUser = createAction(
   "[User] Remove users",
   props<{ userId: number }>(),
 )
+
+export const loadUsersWithSuccess = createAction(
+  "Load users success",
+  props<{users: User[]}>()
+)
+
+export const loadUsersWithFailure = createAction(
+  "Load users failure",
+  props<{error: string}>()
+)

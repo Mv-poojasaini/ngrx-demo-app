@@ -1,14 +1,20 @@
 <div>
-  <h1>Users List</h1>
-  <ul *ngFor="let user of users$ | async">
-    <li>{{user.name}} - {{user.email}}
-      <button (click) = "removeUser(user.id)">Remove</button>
-    </li>
-
-  </ul>
-  <div>
-    <input [(ngModel)]="newName" placeholder="Name" />
-    <input [(ngModel)]="newEmail" placeholder="Email" />
-    <button (click)="addUser()">Add User</button>
+  <div *ngIf="error$ | async as error">
+    <p>Error: {{ error }}</p>
   </div>
+  <!-- <ng-template #usersList> -->
+    <h1>Users List</h1>
+    <ul *ngFor="let user of users$ | async">
+      <li>{{user.name}} - {{user.email}}
+        <button (click)="removeUser(user.id)">Remove</button>
+      </li>
+
+    </ul>
+
+    <div>
+      <input [(ngModel)]="newName" placeholder="Name" />
+      <input [(ngModel)]="newEmail" placeholder="Email" />
+      <button (click)="addUser()">Add User</button>
+    </div>
+  <!-- </ng-template> -->
 </div>
