@@ -9,6 +9,7 @@ import { UserComponent } from './user/user.component';
 import { FormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from 'src/store/user.effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UserEffects } from 'src/store/user.effects';
     FormsModule,
     AppRoutingModule,
     StoreModule.forRoot({user: userReducer}),
-    EffectsModule.forRoot([UserEffects])
+    EffectsModule.forRoot([UserEffects]),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
